@@ -1,0 +1,11 @@
+/target/
+*.iml
+*.idea
+.settings
+.project
+.classpath
+target
+
+**/*-project/.idx
+**/*-project/.lock
+**/*-project/Content/.metadata
