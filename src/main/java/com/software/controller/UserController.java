@@ -37,6 +37,13 @@ public class UserController {
         model.put("message", "Welcome");
         return "welcome";
     }
+
+    @GetMapping("/login")
+    public String login(Map<String, Object> model) {
+        model.put("time", new Date());
+        model.put("message", "Welcome");
+        return "index";
+    }
     /**
      * 返回text格式数据
      *
