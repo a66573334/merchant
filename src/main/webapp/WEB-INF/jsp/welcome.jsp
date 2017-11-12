@@ -6,10 +6,10 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-	<link href="css/font-awesome.min.css" rel="stylesheet" type="text/css">
-	<link href="css/bootstrap.min.css" rel="stylesheet" type="text/css">
-	<link href="css/bootstrap-theme.min.css" rel="stylesheet" type="text/css">
-	<link href="css/templatemo_style.css" rel="stylesheet" type="text/css">
+	<link href="bootstrap/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+	<link href="bootstrap/css/bootstrap-theme.min.css" rel="stylesheet" type="text/css">
+	<link href="bootstrap/css/templatemo_style.css" rel="stylesheet" type="text/css">
 </head>
 <body class="templatemo-bg-gray">
 <div class="container">
