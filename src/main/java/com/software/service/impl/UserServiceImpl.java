@@ -1,9 +1,14 @@
 package com.software.service.impl;
 
 import com.software.dao.UserDao;
+import com.software.domain.PageVO;
 import com.software.domain.User;
 import com.software.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -66,5 +71,24 @@ public class UserServiceImpl implements UserService {
             throw new IllegalArgumentException("sang已存在，但数据不会回滚");
         }
         return p;
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public Page<User> getAll(int page, int rows) {
+        Sort sort = new Sort(Sort.Direction.ASC,"id");
+        Pageable pageable = new PageRequest(page - 1, rows,sort);
+        Page<User> pageResult = userDao.findAll(pageable);
+        return pageResult;
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public Page<User> getAllByUsername(User user, PageVO page) {
+        Sort sort = new Sort(Sort.Direction.ASC,"id");
+        Pageable pageable = new PageRequest(page.getPage() - 1, page.getRows(),sort);
+//        Page<User> pageResult = userDao.findAllByUsername(user.getUsername(),pageable);
+        Page<User> pageResult = userDao.findByUsernameContainingAllIgnoringCase(user.getUsername(),pageable);
+        return pageResult;
     }
 }

@@ -1,11 +1,13 @@
 package com.software.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.software.domain.PageVO;
 import com.software.domain.User;
 import com.software.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -64,6 +67,32 @@ public class UserController {
         logger.info("request /get/username/{username}, parameter is " + username);
         User user = userService.findByUsername(username);
         return JSONObject.toJSONString(user);
+    }
+
+    @RequestMapping("/getAll")
+    @ResponseBody
+    public JSONObject getAll(PageVO page) {
+        logger.info("request /getAll, parameter is"+ page);
+//        User quser = new User();
+//        quser.setUsername(username);
+        Page<User> users = userService.getAll(page.getPage(),page.getRows());
+        JSONObject result = new JSONObject();
+        result.put("total",users.getTotalElements());
+        result.put("rows",users.getContent());
+        logger.debug(result.toJSONString());
+        return result;
+    }
+
+    @RequestMapping("/getAllByUsername")
+    @ResponseBody
+    public JSONObject getAllByUsername(User user,PageVO page) {
+        logger.info("request /getAll, parameter is"+ page);
+        Page<User> users = userService.getAllByUsername(user,page);
+        JSONObject result = new JSONObject();
+        result.put("total",users.getTotalElements());
+        result.put("rows",users.getContent());
+        logger.debug(result.toJSONString());
+        return result;
     }
 
     @RequestMapping("/add/{password}/{username}")
